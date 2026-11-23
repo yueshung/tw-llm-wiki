@@ -1,0 +1,4 @@
+# Python 套件清單（執行檢查腳本用）
+
+pyyaml          # 用於讀取與解析 YAML 檔案
+beautifulsoup4  # 用於解析 HTML 文件

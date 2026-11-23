@@ -1,0 +1,522 @@
+# 來源索引 (Source Registry)
+# 規則：usage=fact_basis 才可作為 [事實] 的依據；supplementary 只能放「補充」欄，且須標示非官方。
+# read_status: full=已讀全文 / partial=只讀到搜尋摘錄或部分 / unread=未讀
+# retrieved_date 為實際擷取日。
+sources:
+  - id: S01
+    title: 因應國際AI網攻威脅 資安署籲企業「補漏洞、快通知、個資最小化」，全民慎防個資詐騙（新聞稿）
+    url: https://moda.gov.tw/ACS/press/news/press/21422
+    publisher: 數位發展部資通安全署
+    publish_date: "2026-11-11"
+    retrieved_date: "2026-11-21"
+    source_type: official
+    read_status: full
+    usage: fact_basis
+    covers: [incident-A, concept-vulnerability-management]
+    notes: 「72小時」出現在數發部提出的五項應變行動（政策呼籲），不是法定期限。
+  - id: S02
+    title: 外交部領事事務局部分網站遭駭說明
+    url: https://www.boca.gov.tw/fp-56-8323-50e8c-1.html
+    publisher: 外交部領事事務局
+    publish_date: "2026-11-09"   # 頁面標示；內容引用到 11/10，疑為事後更新，版本待確認
+    retrieved_date: "2026-11-21"
+    source_type: official
+    read_status: full
+    usage: fact_basis
+    covers: [incident-B]
+    notes: 公告計量單位為「檔案」，未載人數。
+  - id: S03
+    title: 永豐銀行聲明：帳戶款項已全數返還
+    url: https://bank.sinopac.com/sinopacBT/about/introduction/announcement/content/20261103162136250000000000000741.html
+    publisher: 永豐商業銀行
+    publish_date: "2026-11-03"
+    retrieved_date: "2026-11-21"
+    source_type: official
+    read_status: full
+    usage: fact_basis
+    covers: [incident-C]
+    notes: 僅三句；只說「新網銀交易系統程式異常」，後續「供應商安全設定」說法出自記者會，見 M03/M04 轉述。
+  - id: S04
+    title: 彰化基督教醫院遭勒索攻擊，衛福部迅速啟動全國資安應變機制
+    url: https://dep.mohw.gov.tw/DOIM/cp-935-81726-114.html
+    publisher: 衛生福利部資訊處
+    publish_date: "2025-03-04"
+    retrieved_date: "2026-11-21"
+    source_type: official
+    read_status: full
+    usage: fact_basis
+    covers: [incident-D]
+    notes: 談彰基與全國應變；馬偕本身的一手公告尚未取得。同文亦見 mohw.gov.tw/cp-7180-81726-1.html，2026-11-21 已核對文字。
+  - id: S05
+    title: 資通安全網路月報（115年10月）
+    url: https://moda.gov.tw/ACS/press/report/21458
+    publisher: 數位發展部資通安全署
+    publish_date: "2026-11-16"
+    retrieved_date: "2026-11-21"
+    source_type: official
+    read_status: full
+    usage: fact_basis
+    covers: [incident-E, incident-A]
+  - id: S06
+    title: 資通安全網路月報（115年2月）
+    url: https://moda.gov.tw/ACS/press/report/19196
+    publisher: 數位發展部資通安全署
+    publish_date: "2026-03-16"   # 頁面另有更新日 2026-10-13
+    retrieved_date: "2026-11-21"
+    source_type: official
+    read_status: full
+    usage: fact_basis
+    covers: [incident-F, concept-social-engineering]
+  - id: S07
+    title: OWASP API Security Project (Top 10 2023)
+    url: https://owasp.org/projects/api-security-project
+    publisher: OWASP Foundation
+    publish_date: unknown
+    retrieved_date: "2026-11-21"
+    source_type: standard
+    read_status: full   # 僅專案頁；各風險子頁未讀（不得引用子頁細節）
+    usage: fact_basis
+    covers: [concept-api-security]
+  - id: S08
+    title: MITRE ATT&CK Enterprise Matrix
+    url: https://attack.mitre.org/matrices/enterprise/
+    publisher: MITRE
+    publish_date: unknown   # 頁面標示版本 v20
+    retrieved_date: "2026-11-21"
+    source_type: standard
+    read_status: full   # 僅矩陣頁；各技術子頁未讀（不得引用子頁細節）
+    usage: fact_basis
+    covers: [concept-attack-lifecycle]
+    notes: 官方頁現列 15 個戰術（含 Stealth、Defense Impairment）；二手文章常寫 14 個，不採用。詳細戰術說明見 S18。
+  - id: S09
+    title: NIST Incident Response (SP 800-61 Rev.3) 專案頁
+    url: https://csrc.nist.gov/projects/incident-response
+    publisher: NIST
+    publish_date: "2025-04"   # SP 800-61r3 發布；專案頁更新日待確認
+    retrieved_date: "2026-11-21"
+    source_type: standard
+    read_status: full   # 專案頁已讀；另見搜尋摘錄（NIST 新聞稿）；SP 本文 PDF 未讀（不得引用本文細節）
+    usage: fact_basis
+    covers: [concept-incident-response]
+  - id: S11
+    title: 各機關基於風險導向之弱點處置期限評估指引
+    url: https://moda.gov.tw/ACS/operations/aisec/21256
+    publisher: 數位發展部資通安全署
+    publish_date: "2026-11-06"
+    retrieved_date: "2026-11-21"
+    source_type: official
+    read_status: full   # 說明頁與 PDF 本文皆已讀
+    usage: fact_basis
+    covers: [concept-vulnerability-management]
+  - id: S12
+    title: 個人資料保護法（全國法規資料庫）
+    url: https://law.moj.gov.tw/LawClass/LawAll.aspx?PCode=I0050021
+    publisher: 法務部
+    publish_date: "2025-11-11"   # 修正公布日；部分條文尚未施行，施行日未定
+    retrieved_date: "2026-11-21"
+    source_type: official
+    read_status: full
+    usage: fact_basis
+    covers: [concept-breach-notification]
+    notes: 頁面顯示的修正後第12條尚未生效；現行有效為舊條文。
+  - id: S13
+    title: GitLab重大漏洞遭駭客利用 資安署籲儘速更新強化資安防護（新聞稿）
+    url: https://moda.gov.tw/ACS/press/news/press/20738
+    publisher: 數位發展部資通安全署
+    publish_date: unknown   # 約 2026-10 初，確切日期待讀全文
+    retrieved_date: "2026-11-21"
+    source_type: official
+    read_status: partial
+    usage: supplementary
+    covers: [incident-A]
+  - id: S14
+    title: 資通安全網路月報（115年6月）
+    url: https://moda.gov.tw/ACS/press/report/20178
+    publisher: 數位發展部資通安全署
+    publish_date: "2026-06"
+    retrieved_date: "2026-11-21"
+    source_type: official
+    read_status: partial
+    usage: supplementary
+    covers: [concept-vulnerability-management]
+  - id: S15
+    title: 個人資料保護法部分條文修正案業經總統公布，施行日期另由行政院定之
+    url: https://www.pdpc.gov.tw/News_Content/20/1010/
+    publisher: 個人資料保護委員會籌備處
+    publish_date: "2025-11-11"
+    retrieved_date: "2026-11-21"
+    source_type: official
+    read_status: partial
+    usage: supplementary
+    covers: [concept-breach-notification]
+  - id: S16
+    title: 行政院要求各部會督促所轄業者主動通知受資安事件影響當事人 並請國民提高警覺
+    url: https://www.ey.gov.tw/Page/9277F759E41CCD91/e425f55c-4435-41cf-8e17-16412c780e51
+    publisher: 行政院新聞傳播處
+    publish_date: "2026-11-18"
+    retrieved_date: "2026-11-21"
+    source_type: official
+    read_status: full
+    usage: fact_basis
+    covers: [incident-A, concept-breach-notification]
+    notes: 引用數發部統計：十餘家企業機構、約800萬筆（時點 11/18）；依個資法第12條及施行細則第22條通知當事人。
+
+  # ---- 補充來源（非官方；不得作為 [事實] 依據）----
+  - id: M01
+    title: 2025年2月馬偕醫院遭勒索軟體攻擊事件歷程總整理
+    url: https://www.ithome.com.tw/news/167327
+    publisher: iThome
+    publish_date: "2025-02"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-D]
+  - id: M02
+    title: 區網會議 資安案例分享 2025/12/30（TANet 區網簡報，轉述 H-ISAC 與衛福部資訊）
+    url: https://tprc.tanet.edu.tw/tpnet2025/2025meeting2_3.pdf
+    publisher: TANet 區網中心
+    publish_date: "2025-12-30"
+    retrieved_date: "2026-11-21"
+    source_type: secondary
+    read_status: partial
+    usage: supplementary
+    covers: [incident-D]
+    notes: 載明攻擊路徑為 AD 弱密碼與 BYOVD 提權，屬轉述；H-ISAC 原始警訊未取得。
+  - id: M03
+    title: 永豐銀遭駭客盜轉 金管會找銀行高層說明、要求全面釐清（中央社）
+    url: https://www.cna.com.tw/news/afe/202611050282.aspx
+    publisher: 中央社
+    publish_date: "2026-11-05"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-C]
+  - id: M04
+    title: 永豐銀遭駭客盜轉 金管會：要求金融機構全面防護中台（中央社，華視轉載）
+    url: https://news.cts.com.tw/cna/money/202611/202611113099719.html
+    publisher: 中央社
+    publish_date: "2026-11-11"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-C]
+
+  - id: M05
+    title: 外交部領務局網站遭駭，逾7.2萬個護照大頭照外洩，另有授權書及ABTC資料遭取得
+    url: https://www.ithome.com.tw/news/180446
+    publisher: iThome
+    publish_date: "2026-11-12"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-B]
+  - id: M06
+    title: 逾7萬張大頭照外洩 領務局：不影響已核發護照效力
+    url: https://udn.com/news/story/6656/9873762
+    publisher: 聯合新聞網
+    publish_date: unknown
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-B]
+  - id: M07
+    title: 外交部領務局網站遭駭！逾7.2萬張護照大頭照外洩，3大受影響範圍一次看
+    url: https://www.bnext.com.tw/article/93038/boca-website-hack-passport-photo-leak
+    publisher: 數位時代 BNext
+    publish_date: unknown
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-B]
+
+  - id: M08
+    title: 永豐銀遭駭！金管會：僅為爭議交易個案 無涉前端登入（三立新聞）
+    url: https://inews.setn.com/news/1934112
+    publisher: 三立新聞網
+    publish_date: "2026-11-05"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-C]
+  - id: M09
+    title: 永豐銀系統被駭客入侵 金管會若沒做好盡職調查將開罰（民報）
+    url: https://www.peoplenews.tw/articles/economic-news/67174
+    publisher: 民報
+    publish_date: "2026-11-13"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-C]
+  - id: M10
+    title: 永豐銀遭駭418人被盜轉4千萬 金管會盯上這缺失恐被開罰（Yahoo股市）
+    url: https://tw.stock.yahoo.com/news/%E6%B0%B8%E8%B1%90%E9%8A%80%E9%81%AD%E9%A7%AD418%E4%BA%BA%E8%A2%AB%E7%9B%9C%E8%BD%894%E5%8D%83%E8%90%AC-%E9%87%91%E7%AE%A1%E6%9C%83%E7%9B%AF%E4%B8%8A%E9%80%99%E7%BC%BA%E5%A4%B1%E6%81%90%E8%A2%AB%E9%96%8B%E7%BD%B0-092808064.html
+    publisher: Yahoo股市（轉載）
+    publish_date: unknown
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-C]
+
+  - id: M11
+    title: 2025年3月彰化基督教醫院遭勒索軟體攻擊事件歷程總整理（iThome）
+    url: https://www.ithome.com.tw/news/167671
+    publisher: iThome
+    publish_date: "2025-03"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-D]
+  - id: M12
+    title: 馬偕醫院傳出遭CrazyHunter勒索軟體持續攻擊，衛福部與資安署已成立快速應變小組協助因應（iThome）
+    url: https://www.ithome.com.tw/news/167318
+    publisher: iThome
+    publish_date: "2025-02-11"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-D]
+  - id: M13
+    title: 228連假期間彰化基督教醫院遭駭客攻擊（台灣新新聞轉載中央社報導）
+    url: https://www.taiwannews.com.tw/zh/news/6049965
+    publisher: Taiwan News（轉載中央社）
+    publish_date: "2025-03-03"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-D]
+  - id: M14
+    title: 馬偕、彰基醫院遭駭客攻擊 衛福部草擬應變教戰守則（中時）
+    url: https://www.chinatimes.com/realtimenews/20250304004693-260405
+    publisher: 中時新聞網
+    publish_date: "2025-03-04"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-D]
+  - id: S17
+    title: OWASP Top 10 API Security Risks – 2023
+    url: https://api-security.owasp.org/editions/2023/en/0x11-t10/
+    publisher: OWASP API Security Project team
+    publish_date: "2023"
+    retrieved_date: "2026-11-21"
+    source_type: standard
+    read_status: full   # 十項風險總表已讀；各風險子頁未讀（不得引用子頁細節）
+    usage: fact_basis
+    covers: [concept-api-security]
+    notes: 本頁為 OWASP 2023 版清單；與 S07（專案頁）互補。
+  - id: S18
+    title: Enterprise tactics | MITRE ATT&CK®（ATT&CK content v20.1）
+    url: https://attack.mitre.org/tactics/enterprise/
+    publisher: MITRE
+    publish_date: unknown   # 頁面標示 ATT&CK content v20.1；© 2015-2026
+    retrieved_date: "2026-11-21"
+    source_type: standard
+    read_status: full   # 僅戰術總表；各技術子頁未讀（不得引用技術編號與細節）
+    usage: fact_basis
+    covers: [concept-attack-lifecycle]
+    notes: 官方列 15 個企業戰術；多篇二手文章仍寫 14 個（含 Defense Evasion），不採用。
+  - id: S19
+    title: "#StopRansomware Guide（CISA 官方頁面，2023 年 9 月版）"
+    url: https://www.cisa.gov/stopransomware/ransomware-guide
+    publisher: 美國 CISA（與 FBI、NSA、MS-ISAC 共同撰寫）
+    publish_date: "2023-09"   # 頁面標示 September 2023 版
+    retrieved_date: "2026-11-21"
+    source_type: standard
+    read_status: full
+    usage: fact_basis
+    covers: [concept-ransomware, concept-third-party-risk, concept-incident-response]
+    notes: 外國官方指引，非臺灣法規；用於一般性技術原理與最佳實務。版本日期為 2023，引用時需註明。
+  - id: S20
+    title: information security（NIST CSRC Glossary）
+    url: https://csrc.nist.gov/glossary/term/information_security
+    publisher: NIST CSRC
+    publish_date: unknown   # 定義源自 FIPS 200 與 44 U.S.C. Sec. 3542 等
+    retrieved_date: "2026-11-21"
+    source_type: standard
+    read_status: full
+    usage: fact_basis
+    covers: [concept-security-fundamentals]
+    notes: 定義本身引自美國聯邦法典與 FIPS 200，屬美國官方術語，用於基礎概念。
+  - id: S21
+    title: vulnerability（NIST CSRC Glossary）
+    url: https://csrc.nist.gov/glossary/term/vulnerability
+    publisher: NIST CSRC
+    publish_date: unknown
+    retrieved_date: "2026-11-21"
+    source_type: standard
+    read_status: full
+    usage: fact_basis
+    covers: [concept-security-fundamentals]
+  - id: M15
+    title: "數發部：委外廠商設定錯誤產生漏洞（領務局網站遭駭，聯合新聞網）"
+    url: https://udn.com/news/story/6656/9886269
+    publisher: 聯合新聞網
+    publish_date: "2026-11-18"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-B]
+  - id: M16
+    title: "領務局網站遭駭資料外洩 數發部長：委外廠商設定錯誤（自由時報）"
+    url: https://news.ltn.com.tw/news/life/breakingnews/5644978
+    publisher: 自由時報
+    publish_date: "2026-11-18"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-B]
+  - id: M17
+    title: "外交部領務局遭駭 林宜敬揭主因：委外更新設定衍生漏洞（Yahoo 新聞）"
+    url: https://tw.news.yahoo.com/%E5%A4%96%E4%BA%A4%E9%83%A8%E9%A0%98%E5%8B%99%E5%B1%80%E9%81%AD%E9%A7%AD-%E6%9E%97%E5%AE%9C%E6%95%AC%E6%8F%AD%E4%B8%BB%E5%9B%A0-%E5%A7%94%E5%A4%96%E6%9B%B4%E6%96%B0%E8%A8%AD%E5%AE%9A%E8%A1%8D%E7%94%9F%E6%BC%8F%E6%B4%9E-035357186.html
+    publisher: Yahoo 新聞
+    publish_date: "2026-11-18"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-B]
+  - id: M18
+    title: "領務局遭駭因委外更新設定錯 洪孟楷追有無第三方確認"
+    url: https://www.contentplatform.info/articles/581839/%E9%A0%98%E5%8B%99%E5%B1%80%E9%81%AD%E9%A7%AD%E5%9B%A0%E5%A7%94%E5%A4%96%E6%9B%B4%E6%96%B0%E8%A8%AD%E5%AE%9A%E9%8C%AF%E3%80%80%E6%B4%AA%E5%AD%9F%E6%A5%B7%E8%BF%BD%E6%9C%89%E7%84%A1%E7%AC%AC%E4%B8%89/
+    publisher: contentplatform
+    publish_date: "2026-11-18"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-B]
+  - id: M19
+    title: "領務局網站遭駭致個資外洩 數發部：委外廠商設定錯誤致漏洞遭AI掃描入侵（臺灣郵報）"
+    url: https://taiwanpost.net/2026/politics/183299/
+    publisher: 臺灣郵報
+    publish_date: "2026-11-18"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-B]
+  - id: M20
+    title: "永豐銀行異常轉帳確認為駭客攻擊，供應商安全設定漏洞遭利用（iThome）"
+    url: https://www.ithome.com.tw/news/180233
+    publisher: iThome
+    publish_date: "2026-11-04"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-C]
+  - id: M21
+    title: "永豐銀行異常轉帳原因找到了！駭客利用供應商安全設定 418人受影響（財訊雙週刊）"
+    url: https://www.wealth.com.tw/articles/c02bbc79-6ed1-4e71-8734-75d0c5d27421
+    publisher: 財訊雙週刊
+    publish_date: "2026-11-04"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-C]
+  - id: M22
+    title: "永豐銀419人遭盜轉逾4000萬！駭客攻擊手法曝光（壹蘋新聞網）"
+    url: https://news.nextapple.com/finance/20261104/C9B3E7621C86AA3B5574AFB401645FF0
+    publisher: 壹蘋新聞網
+    publish_date: "2026-11-04"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-C]
+  - id: M23
+    title: "永豐銀異常轉帳原因出爐 系統安全設定遭駭無個資外洩（聯合新聞網）"
+    url: https://money.udn.com/money/story/5612/9857560
+    publisher: 聯合新聞網
+    publish_date: "2026-11-04"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-C]
+  - id: M24
+    title: "AI代理網攻波及臺灣十餘家企業，逾百萬份個資受影響（iThome）"
+    url: https://www.ithome.com.tw/news/180535
+    publisher: iThome
+    publish_date: "2026-11-16"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-A]
+  - id: M25
+    title: "FBI示警AI駭客工具ARTEX攻擊全球 台灣91APP也受害（新頭殼）"
+    url: https://newtalk.tw/news/view/2026-11-14/1071114
+    publisher: 新頭殼
+    publish_date: "2026-11-14"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-A]
+  - id: M26
+    title: "駭客利用AI滲透測試工具ARTEX竊取韓國金融業資料（TWCERT/CC 資安新聞）"
+    url: https://www.twcert.org.tw/tw/cp-104-11352-8c3dc-1.html
+    publisher: TWCERT/CC
+    publish_date: "unknown"
+    retrieved_date: "2026-11-21"
+    source_type: secondary
+    read_status: partial
+    usage: supplementary
+    covers: [incident-A]
+  - id: M27
+    title: "GitLab重大漏洞遭駭客利用 資安署：企業儘速更新強化資安防護（聯合新聞網，轉述資安署新聞稿）"
+    url: https://udn.com/news/story/7238/9790612
+    publisher: 聯合新聞網
+    publish_date: "2026-10-02"
+    retrieved_date: "2026-11-21"
+    source_type: media
+    read_status: partial
+    usage: supplementary
+    covers: [incident-A]
+  - id: M28
+    title: "CrazyHunter: The Rising Threat of Open-Source Ransomware（WithSecure Labs）"
+    url: https://labs.withsecure.com/publications/crazyhunter-ransomware
+    publisher: WithSecure Labs
+    publish_date: "unknown"
+    retrieved_date: "2026-11-21"
+    source_type: vendor_research
+    read_status: partial
+    usage: supplementary
+    covers: [incident-D]
+  - id: M29
+    title: "CrazyHunter Campaign Targets Taiwanese Critical Sectors（Trend Micro）"
+    url: https://www.trendmicro.com/en_us/research/25/d/crazyhunter-campaign.html
+    publisher: Trend Micro
+    publish_date: "2025-04"
+    retrieved_date: "2026-11-21"
+    source_type: vendor_research
+    read_status: partial
+    usage: supplementary
+    covers: [incident-D]
+  - id: M30
+    title: "The Ghost in the Machine: Unmasking CrazyHunter's Stealth Tactics（Trellix）"
+    url: https://www.trellix.com/blogs/research/the-ghost-in-the-machine-crazyhunters-stealth-tactics/
+    publisher: Trellix
+    publish_date: "unknown"
+    retrieved_date: "2026-11-21"
+    source_type: vendor_research
+    read_status: partial
+    usage: supplementary
+    covers: [incident-D]

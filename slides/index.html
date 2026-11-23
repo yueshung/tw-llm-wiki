@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>從臺灣資安事件學資安｜資管系教學簡報</title>
+<style>
+:root{--ink:#3b2314;--gold:#f6c453;--paper:#f4e6c4;--red:#b3261e;--soft:#fff8e4;--c:#3b2314}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:#2a1d12;color:var(--ink);font:1em/1.7 "Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)}
+#bar{height:5px;background:#4a3320}#bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .25s}
+main{flex:1;overflow:auto;padding:clamp(.6rem,3vw,2rem) clamp(.6rem,4vw,3rem)}
+.s{display:none;max-width:66rem;margin:0 auto;background:radial-gradient(ellipse at 15% 0,#fbf1d6,transparent 65%),var(--paper);border:3px solid var(--ink);border-radius:8px;padding:clamp(1.1rem,3.5vw,2.2rem);min-height:min(34rem,72vh);position:relative}.s.on{display:block}
+.s::before{content:attr(data-ch);position:absolute;top:.8rem;right:.8rem;background:var(--ink);color:var(--gold);border:2px solid var(--gold);border-radius:8px;font-weight:800;padding:.2rem 1rem}
+h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.2;font-weight:900;margin:.1em 0 .3em;max-width:80%}
+h2{font-size:clamp(1.4rem,4vw,2.1rem);font-weight:900;line-height:1.3;margin:.3rem 0 .6rem;max-width:80%}
+.goal{display:inline-block;color:#7a5530;font-weight:700;font-size:.86rem;margin:0}
+p,li{max-width:50rem;margin:.3rem 0}.m{color:#6b4e30;font-size:.85rem}
+table{border-collapse:collapse;width:100%;font-size:1rem;background:var(--soft)}.tw{overflow-x:auto;margin:.5rem 0}td:first-child,th:first-child{width:30%}
+th,td{padding:.4rem .7rem;text-align:left;vertical-align:top;border:1px solid #cdb27a}th{background:var(--ink);color:var(--gold)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.6rem,1fr));gap:1rem 1.3rem;margin:.9rem 0}
+.card{position:relative;text-align:center}
+.card:not(:last-child)::after{content:"❯";position:absolute;right:-1.1rem;top:2.4rem;color:var(--red);font-weight:900;font-size:1.5rem}
+.ill{width:5.6rem;height:5.6rem;margin:0 auto .4rem;border-radius:50%;background:radial-gradient(circle,#fff6dc,#ecd6a0);overflow:hidden}
+.ill svg,.ill img{width:100%;height:100%;display:block;object-fit:cover;stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.lb{display:block;background:var(--ink);color:#fff;border:2px solid var(--gold);border-radius:10px;padding:.25rem .4rem;font-weight:800;font-size:.95rem}
+.card p{font-size:.8rem;line-height:1.5;margin:.4rem 0 0;color:#4a3320}
+.box{background:var(--soft);border:2px solid var(--ink);border-radius:8px;padding:.6rem .9rem;margin:.6rem 0}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.7rem}.cols .box{margin:0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));gap:.7rem}.stat{background:var(--soft);border:2px solid var(--ink);border-radius:8px;padding:.5rem .7rem}
+.stat b{display:block;font-size:1.5rem;line-height:1.3;color:var(--red)}.stat span{font-size:.8rem;color:#6b4e30}
+.chip{display:inline-block;background:var(--soft);border:1px solid #cdb27a;border-radius:999px;padding:.05rem .7rem;margin:.15rem;font-size:.85rem}
+.bd{display:inline-block;width:2rem;height:2rem;border-radius:50%;background:var(--ink);color:var(--gold);text-align:center;font:800 1rem/2rem system-ui;margin-right:.4rem}
+.mas{float:right;width:6.5rem;height:6.5rem;margin:2rem .2rem 0 .5rem;stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+details{background:var(--soft);border:2px solid var(--ink);border-radius:8px;padding:.4rem .8rem;margin:.4rem 0}summary{cursor:pointer;font-weight:700}
+footer{background:#1c130a;color:#e6d6b4;padding:.55rem clamp(1rem,5vw,4rem) calc(.55rem + env(safe-area-inset-bottom));display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;font-size:.8rem}
+footer .src{flex:1 1 14rem}footer a{color:var(--gold)}
+button,select{font:inherit;color:var(--gold);background:var(--ink);border:2px solid var(--gold);border-radius:10px;padding:.35rem 1rem;min-height:2.5rem;cursor:pointer}
+#next{background:var(--gold);color:var(--ink);font-weight:800}
+button:focus-visible,select:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #fff;outline-offset:2px}
+html{font-size:16px}
+#crumb{display:flex;gap:.3rem;flex-wrap:wrap;padding:.45rem clamp(.6rem,4vw,3rem) 0}#crumb span{font-size:.78rem;color:#cdb27a;border:1px solid #4a3320;border-radius:999px;padding:0 .7rem}#crumb span.on{background:var(--gold);color:var(--ink);border-color:var(--gold);font-weight:800}
+.lead{font-size:1.28rem;line-height:1.6;font-weight:800;max-width:52rem;margin:.2rem 0 .8rem}.lead b{background:linear-gradient(transparent 60%,#f6c45366 60%)}
+.box h3,.box>b:first-child{font-size:1.02rem}.box ul{margin:.3rem 0 0;padding-left:1.2rem}.box li{max-width:none;margin:.2rem 0}
+.sp{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:.8rem;margin:.6rem 0}.sp .box{margin:0}
+.tri{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.8rem;margin:.6rem 0}.tri .box{margin:0}.tri .box>b{font-size:1.15rem}
+.ph{background:var(--soft);border:2px solid var(--ink);border-radius:8px;padding:.5rem .8rem}.ph>b{display:block;background:var(--ink);color:var(--gold);border-radius:6px;padding:.1rem .6rem;margin-bottom:.3rem}.ph span{display:block;font-size:.88rem;margin:.15rem 0}
+.tq{display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:.7rem;margin:1rem 0 0}.take{background:var(--ink);color:#f7ecd0;border-radius:8px;padding:.6rem .9rem}.take b{color:var(--gold)}.think{background:#fff3cf;border:2px dashed var(--ink);border-radius:8px;padding:.6rem .9rem}
+@media(max-width:600px){td:first-child,th:first-child{width:auto}.card:not(:last-child)::after{display:none}.cards{grid-template-columns:repeat(2,1fr)}h1,h2{max-width:100%;margin-top:2.2rem}.mas{width:4rem;height:4rem;margin-top:0}footer .src{order:3;flex-basis:100%}}
+@media(prefers-reduced-motion:reduce){#bar i{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-bug" viewBox="0 0 64 64"><path d="M14 56V34C14 20 22 10 32 10s18 10 18 24v22z" fill="#5b3a6b"/><ellipse cx="32" cy="35" rx="12" ry="10" fill="#f6d9a8"/><circle cx="27" cy="34" r="2.5" fill="#3b2314"/><circle cx="37" cy="34" r="2.5" fill="#3b2314"/><path d="M26 42q6 4 12 0" fill="none"/></symbol>
+<symbol id="i-gear" viewBox="0 0 64 64"><path d="M32 8v8M32 48v8M8 32h8M48 32h8M15 15l6 6M43 43l6 6M49 15l-6 6M21 43l-6 6" fill="none" stroke-width="6"/><circle cx="32" cy="32" r="13" fill="#e0a526"/><circle cx="32" cy="32" r="4" fill="#f4e6c4"/></symbol>
+<symbol id="i-warn" viewBox="0 0 64 64"><path d="M32 8L58 54H6z" fill="#e0a526"/><path d="M32 24v14" fill="none" stroke-width="4"/><circle cx="32" cy="46" r="2.2" fill="#3b2314"/></symbol>
+<symbol id="i-net" viewBox="0 0 64 64"><path d="M32 16L14 46M32 16L50 46M14 46H50" fill="none"/><circle cx="32" cy="14" r="8" fill="#4aa3a2"/><circle cx="14" cy="46" r="8" fill="#e0a526"/><circle cx="50" cy="46" r="8" fill="#c8553d"/></symbol>
+<symbol id="i-db" viewBox="0 0 64 64"><path d="M12 16v32c0 5 9 9 20 9s20-4 20-9V16" fill="#4aa3a2"/><ellipse cx="32" cy="16" rx="20" ry="8" fill="#7fc8c6"/><path d="M12 32c0 5 9 9 20 9s20-4 20-9" fill="none"/></symbol>
+<symbol id="i-mail" viewBox="0 0 64 64"><rect x="8" y="14" width="48" height="36" rx="4" fill="#f6d9a8"/><path d="M8 18l24 18 24-18" fill="none"/></symbol>
+<symbol id="i-doc" viewBox="0 0 64 64"><rect x="14" y="7" width="36" height="50" rx="3" fill="#f6d9a8"/><path d="M21 18h22M21 26h22" fill="none"/><circle cx="32" cy="43" r="6" fill="#4aa3a2"/></symbol>
+<symbol id="i-shield" viewBox="0 0 64 64"><path d="M32 6l22 8v16c0 14-9 24-22 28C19 54 10 44 10 30V14z" fill="#4aa3a2"/><path d="M21 32l8 8 15-16" fill="none" stroke-width="4.5" stroke="#fff6dc"/></symbol>
+<symbol id="i-key" viewBox="0 0 64 64"><path d="M30 32l24 20M44 46l6-6M50 52l6-6" fill="none" stroke-width="4"/><circle cx="20" cy="26" r="12" fill="#e0a526"/><circle cx="20" cy="26" r="4" fill="#f4e6c4"/></symbol>
+<symbol id="i-lock" viewBox="0 0 64 64"><path d="M22 28v-8a10 10 0 0 1 20 0v8" fill="none" stroke-width="4.5"/><rect x="13" y="28" width="38" height="28" rx="4" fill="#c8553d"/><circle cx="32" cy="42" r="3.5" fill="#f4e6c4"/></symbol>
+<symbol id="i-bank" viewBox="0 0 64 64"><path d="M6 24L32 8l26 16z" fill="#e0a526"/><path d="M14 29v21M26 29v21M38 29v21M50 29v21" stroke-width="5" fill="none"/><rect x="6" y="52" width="52" height="6" fill="#f6d9a8"/></symbol>
+<symbol id="i-disk" viewBox="0 0 64 64"><rect x="8" y="20" width="48" height="28" rx="5" fill="#4aa3a2"/><circle cx="46" cy="34" r="3" fill="#f4e6c4"/><path d="M14 34h18" fill="none" stroke-width="4" stroke="#f4e6c4"/></symbol>
+<symbol id="i-m" viewBox="0 0 64 64"><circle cx="30" cy="38" r="20" fill="#e8b45e"/><path d="M10 28C12 14 22 8 30 8s18 6 20 20z" fill="#7a4b2a"/><rect x="6" y="26" width="48" height="5" rx="2" fill="#5b3a1e"/><circle cx="23" cy="40" r="3" fill="#3b2314"/><circle cx="37" cy="40" r="3" fill="#3b2314"/><path d="M24 49q6 5 12 0" fill="none"/><circle cx="50" cy="46" r="9" fill="#cfeeee" opacity=".85"/><path d="M56 53l6 6" stroke-width="4"/></symbol>
+</defs></svg>
+<div id="bar" role="progressbar" aria-label="進度"><i></i></div>
+<nav id="crumb" aria-label="教學章節"></nav>
+<main id="deck">
+<section class="s" data-ch="開場" data-wiki="index" data-src="S01,S05">
+<p class="goal">教學目的：說明這份簡報怎麼走</p>
+<svg class="mas" viewBox="0 0 64 64"><use href="#i-m"/></svg><h1>從臺灣近期資安事件學資安</h1><p>不只知道發生什麼事，還要追問：怎麼發生、為什麼沒擋住、怎麼改善、怎麼應變。</p><div class="cards"><div class="card"><div class="ill" data-img="g1"><svg viewBox="0 0 64 64"><use href="#i-shield"/></svg></div><span class="lb">① 資安基礎</span><p>現況、CIA 三要素、攻擊階段</p></div><div class="card"><div class="ill" data-img="g2"><svg viewBox="0 0 64 64"><use href="#i-bug"/></svg></div><span class="lb">② 案例拆解</span><p>6 個臺灣事件的攻擊路徑</p></div><div class="card"><div class="ill" data-img="g3"><svg viewBox="0 0 64 64"><use href="#i-key"/></svg></div><span class="lb">③ 攻防對照</span><p>每種手法對應的防禦與修補期限</p></div><div class="card"><div class="ill" data-img="g4"><svg viewBox="0 0 64 64"><use href="#i-disk"/></svg></div><span class="lb">④ 應變與總結</span><p>事件應變、個資通知、自我測驗</p></div></div><div class="sp"><div class="box"><b>學完你能做到</b><ul><li>說出 CIA 三要素與「弱點」的意思</li><li>把一個資安事件拆成攻擊路徑</li><li>把攻擊手法對應到防禦與修補期限</li><li>分清楚法律、草案與政策呼籲</li></ul></div><div class="box"><b>每一頁怎麼讀</b><ul><li><b>教學目的</b>：這頁要學什麼</li><li><b>核心內容</b>：概念、步驟或案例</li><li><b>本頁重點</b>與<b>想一想</b>：帶走與討論</li><li>頁尾：對應的 Wiki 頁與來源；右下 A−／A＋ 可調字級</li></ul></div></div>
+<p class="m">資料擷取日 2026-11-21。多數事件仍在調查，各方說法可能更新。</p>
+</section>
+<section class="s" data-ch="基礎" data-wiki="concept-taiwan-threat-landscape" data-src="S05,S06">
+<p class="goal">教學目的：認識官方月報怎麼描述臺灣公部門的威脅輪廓</p>
+<h2>臺灣現況：資安署月報怎麼讀</h2>
+<p class="lead">月報同時看兩件事：<b>外部試探有多少</b>（聯防情資），與<b>事件實際發生多少</b>（通報）。</p>
+<div class="stats"><div class="stat"><b>54 → 160</b><span>事件通報件數（2 月 → 10 月；10 月含演練 8）</span></div><div class="stat"><b>72.22% → 73.13%</b><span>非法入侵占通報</span></div><div class="stat"><b>54% → 51%</b><span>資訊蒐集類占聯防情資</span></div><div class="stat"><b>60,764 → 68,860</b><span>聯防情資件數</span></div></div>
+<div class="sp"><div class="box"><b>名詞怎麼理解</b><ul><li><b>聯防情資</b>：政府機關資安聯防監控蒐整到的情資件數。</li><li><b>資訊蒐集類</b>：透過掃描、探測及社交工程取得資訊，兩個月份都排第 1。</li><li><b>通報</b>：機關通報的資安事件，其中非法入侵占了大多數。</li></ul></div><div class="box"><b>解讀時要小心</b><ul><li>這是政府機關的數字，不是全臺灣。</li><li>2 月、10 月通報件數分別是去年同期的 0.9 倍、3.02 倍。</li><li>只比兩個月，只是快照，不能直接說趨勢。</li></ul></div></div>
+
+<div class="tq"><div class="take"><b>本頁重點</b><br>月報同時看「外部試探量」與「實際事件量」；數字只是公部門的快照。</div><div class="think"><b>想一想</b><br>通報件數 54 → 160，能直接說攻擊增加三倍嗎？你還需要哪些資訊？</div></div>
+</section>
+<section class="s" data-ch="基礎" data-wiki="concept-security-fundamentals" data-src="S20,S21">
+<p class="goal">教學目的：記住資安要保護的三件事</p>
+<h2>CIA 三要素與弱點</h2>
+<p class="lead">資安只要先記住三件事：<b>不被偷看、不被亂改、要用時用得到</b>。</p>
+<div class="tri"><div class="box"><span class="bd">C</span><b>機密性 Confidentiality</b><ul><li><b>意思</b>：只有被授權的人能存取與取得資訊。</li><li><b>被破壞的例子</b>：個資、護照照片外洩（案例 A、B）。</li><li><b>常見防護</b>：存取控制、加密、最小化蒐集。</li></ul></div>
+<div class="box"><span class="bd">I</span><b>完整性 Integrity</b><ul><li><b>意思</b>：資訊不被不當修改或破壞，來源可信。</li><li><b>被破壞的例子</b>：款項被轉出、異常新增帳號（案例 C、E）。</li><li><b>常見防護</b>：驗證流程、日誌稽核。</li></ul></div>
+<div class="box"><span class="bd">A</span><b>可用性 Availability</b><ul><li><b>意思</b>：需要時能及時、可靠地使用資訊。</li><li><b>被破壞的例子</b>：系統與檔案被加密停擺（案例 D）。</li><li><b>常見防護</b>：備份備援、還原演練。</li></ul></div></div>
+<div class="box"><b>弱點（Vulnerability）</b>：系統、安全程序、內部控制或實作上的缺陷，可能被威脅來源利用（NIST 術語）。攻擊者利用弱點，才會變成後面看到的事件。</div>
+
+<div class="tq"><div class="take"><b>本頁重點</b><br>判斷事件，先問「最先壞掉的是哪一個要素」，再看連鎖影響。</div><div class="think"><b>想一想</b><br>勒索軟體若同時加密又竊資，破壞了哪些要素？</div></div>
+</section>
+<section class="s" data-ch="基礎" data-wiki="concept-attack-lifecycle" data-src="S18,S06">
+<p class="goal">教學目的：知道一次入侵由多個階段組成，每個階段都能攔</p>
+<h2>攻擊不是一個動作：ATT&amp;CK 15 個戰術</h2>
+<p class="lead">一次入侵是一連串階段。把階段拆開，才看得出<b>每一格都能設防</b>。</p>
+<div class="sp"><div class="ph"><b>① 準備</b><span>偵察：蒐集資訊以規劃行動</span><span>資源開發</span></div>
+<div class="ph"><b>② 入侵與立足</b><span>初始入侵：進入網路</span><span>執行：執行惡意程式碼</span><span>持久化：維持立足點</span><span>提權：取得更高權限</span><span>隱匿：隱藏行動</span><span>破壞防禦：破壞安全機制與工具</span></div>
+<div class="ph"><b>③ 擴張</b><span>憑證存取：竊取帳號密碼</span><span>探索</span><span>橫向移動：在環境中移動</span></div>
+<div class="ph"><b>④ 達成目的</b><span>蒐集</span><span>指揮控制：與被控系統通訊</span><span>外傳：竊取資料</span><span>衝擊：操縱、中斷或破壞</span></div></div>
+<table><tr><th>案例</th><th>攻擊路徑對照到的階段</th></tr><tr><td>A</td><td>初始入侵（已知漏洞）→ 蒐集與外傳（透過 API 取資料）</td></tr><tr><td>D</td><td>憑證存取（弱密碼）→ 橫向移動（GPO 派送）→ 破壞防禦（關防毒）→ 衝擊（加密）</td></tr><tr><td>F</td><td>初始入侵（釣魚信）→ 執行（惡意附檔）→ 持久化（後門）→ 指揮控制（遠端控制）</td></tr></table>
+<p class="m">戰術清單為 MITRE 官方頁（v20.1）；四階段分組與案例對照是本簡報的教學整理。</p>
+
+<div class="tq"><div class="take"><b>本頁重點</b><br>越早在攻擊鏈上攔下，損害越小；每一階段都能設防。</div><div class="think"><b>想一想</b><br>案例 F 的四個階段，你會在哪一階設第一道防線？</div></div>
+</section>
+<section class="s" data-ch="案例" data-wiki="incident-a-ai-agent-attacks,concept-ai-assisted-attack" data-src="S01,S05,S16" data-sup="M24,M25,M27">
+<p class="goal">教學目的：理解 AI 代理如何把找洞、打洞、取資料自動化</p>
+<h2>案例 A｜AI 代理網攻與企業個資外洩</h2><div class="cards"><div class="card"><div class="ill" data-img="a1"><svg viewBox="0 0 64 64"><use href="#i-bug"/></svg></div><span class="lb">① 找目標</span><p>境外駭客用 AI 代理工具自動掃描，鎖定 PHP、Node.js、GitLab 等已知高風險漏洞。</p></div><div class="card"><div class="ill" data-img="a2"><svg viewBox="0 0 64 64"><use href="#i-gear"/></svg></div><span class="lb">② 打進去</span><p>例：GitLab CVE-2026-85706（CVSS 10.0），路徑遍歷，免登入可讀伺服器任意檔案，含設定與憑證。</p></div><div class="card"><div class="ill" data-img="a3"><svg viewBox="0 0 64 64"><use href="#i-net"/></svg></div><span class="lb">③ 直攻後端</span><p>ARTEX 這類工具繞過前端介面，直攻後端 API 與憑證漏洞（資安院）。</p></div><div class="card"><div class="ill" data-img="a4"><svg viewBox="0 0 64 64"><use href="#i-db"/></svg></div><span class="lb">④ 大量取資料</span><p>高權限、可大量存取的 API，一次取走大量訂單與聯絡資料。</p></div><div class="card"><div class="ill" data-img="a5"><svg viewBox="0 0 64 64"><use href="#i-mail"/></svg></div><span class="lb">⑤ 變現</span><p>資料流入黑市，衍生冒名詐騙；尚未發現信用卡資料外洩。</p></div></div><p><b>實例</b>：91APP 10/29 公布，ARTEX 經第三方系統弱點進入內部網路。<b>規模</b>：資安署 11/11 說逾百萬份；11/12 起約 800 萬筆，且並非全部可歸因 ARTEX。</p><div class="cols"><div class="box"><b>為什麼擋不住</b><br>官方的看法：AI 改變的是攻擊的速度與成本，弱點與權限管理疏失仍是核心。</div><div class="box"><b>怎麼改善與應變</b><br>補漏洞（先保全日誌、清查同類系統、鑑識確認無後門）、快通知、個資最小化。</div></div>
+
+<div class="tq"><div class="take"><b>本頁重點</b><br>AI 改變的是攻擊的速度與成本；弱點與權限管理疏失仍是核心。</div><div class="think"><b>想一想</b><br>如果 API 只檢查「有沒有登入」，就回傳全部資料，會有什麼風險？</div></div>
+</section>
+<section class="s" data-ch="防禦" data-wiki="concept-vulnerability-management,concept-breach-notification,concept-web-system-vulnerability" data-src="S11,S01,S05,S12">
+<p class="goal">教學目的：學會依風險決定修補順序，並分清法律與呼籲</p>
+<h2>修補要多快？看四個條件</h2>
+<p class="lead">不是所有弱點都要同一天修：先問四個問題，<b>決定急迫程度</b>。</p>
+<div class="sp"><div class="box"><b>資安署指引的四項指標</b><ul><li><b>對外曝露</b>：資產是否能從公眾網路連到。</li><li><b>已知被利用</b>：弱點是否已被 CISA 列入 KEV 清單。</li><li><b>可自動化</b>：能否穩定地以自動化方式完成偵察到利用。</li><li><b>技術影響</b>：利用後是完全控制或部分控制。</li></ul></div>
+<div class="box"><b>暫時修不了怎麼辦</b><ul><li>停用資產、移除有弱點的軟體</li><li>網段劃分、網路隔離</li><li>強化存取控制（零信任）</li><li>代理伺服器過濾</li><li>虛擬修補（以防火牆、IPS 阻擋已知利用特徵）</li></ul></div></div>
+<table><tr><th>情況</th><th>處置期限</th></tr><tr><td>對外＋已被利用＋可自動化＋完全控制</td><td>3 天</td></tr><tr><td>對外，其他條件部分成立</td><td>14 天或 60 天</td></tr><tr><td>非對外、未被利用、不可自動化</td><td>待下次系統更新</td></tr></table>
+<p class="m">期限從知悉日起算，以日曆天計。指引直接適用公務機關與特定非公務機關。</p>
+<div class="box"><b>72 小時是什麼？</b> 數發部對業者提出的應變行動（呼籲）。個資法現行第 12 條是「查明後以適當方式通知當事人」；修正案 2025-11-11 公布，施行日由行政院另定。</div>
+
+<div class="tq"><div class="take"><b>本頁重點</b><br>先看四個條件排優先順序；修不了就用補償性控制。</div><div class="think"><b>想一想</b><br>數發部的 72 小時是法定期限嗎？你依據哪一頁判斷？</div></div>
+</section>
+<section class="s" data-ch="案例" data-wiki="incident-b-boca-website-breach" data-src="S02" data-sup="M15,M16,M18,M19">
+<p class="goal">教學目的：看懂一次委外變更如何變成資料外洩，並讀懂公告的單位</p>
+<h2>案例 B｜領務局網站遭駭（11/4 發現）</h2><div class="cards"><div class="card"><div class="ill" data-img="b1"><svg viewBox="0 0 64 64"><use href="#i-gear"/></svg></div><span class="lb">① 埋下漏洞</span><p>數月前委外廠商更新系統時設定錯誤，產生原本不存在的新漏洞（數發部長 11/18 說明）。</p></div><div class="card"><div class="ill" data-img="b2"><svg viewBox="0 0 64 64"><use href="#i-bug"/></svg></div><span class="lb">② 被發現</span><p>駭客用 AI 工具自動掃描，找到這個漏洞並入侵。</p></div><div class="card"><div class="ill" data-img="b3"><svg viewBox="0 0 64 64"><use href="#i-doc"/></svg></div><span class="lb">③ 取走檔案</span><p>護照大頭照 72,702 個、授權書掃描檔 26,072 個、ABTC 申請資料 774 件。</p></div><div class="card"><div class="ill" data-img="b4"><svg viewBox="0 0 64 64"><use href="#i-shield"/></svg></div><span class="lb">④ 發現與應變</span><p>11/4 發現，隔離主機、保存事證、通報、替代作業、修復上線、公告、移送司法。</p></div></div><p class="m">公告的單位是「檔案」與「申請案」，不是人數；公告稱目前未發現大頭照以外的姓名、身分證字號、護照號碼遭取得。</p><div class="cols"><div class="box"><b>為什麼擋不住</b><br>資安署長表示，領務局更新後沒有找專業顧問做安全確認，事前也沒請數發部協助。</div><div class="box"><b>怎麼改善與應變</b><br>系統變更後做第三方安全檢測；委外契約明訂資安義務並檢視管理；影像檔限期保存、完成後刪除。</div></div>
+
+<div class="tq"><div class="take"><b>本頁重點</b><br>委外系統「變更」之後要驗證；讀公告要先看單位。</div><div class="think"><b>想一想</b><br>「72,702 個檔案」能換算成受影響人數嗎？為什麼？</div></div>
+</section>
+<section class="s" data-ch="案例" data-wiki="incident-c-sinopac-abnormal-transfer" data-src="S03" data-sup="M03,M04,M20,M21,M22,M23">
+<p class="goal">教學目的：觀察金融事件的手法，以及說法如何隨調查演變</p>
+<h2>案例 C｜永豐新網銀異常轉帳（11/3）</h2><div class="cards"><div class="card"><div class="ill" data-img="c1"><svg viewBox="0 0 64 64"><use href="#i-bank"/></svg></div><span class="lb">① 目標</span><p>新網銀 App 交易系統，供應商是國外知名廠商，臺灣只有永豐導入。</p></div><div class="card"><div class="ill" data-img="c2"><svg viewBox="0 0 64 64"><use href="#i-key"/></svg></div><span class="lb">② 找帳戶</span><p>隨機試誤取得有效帳戶；受害帳戶身分證字號首碼相同，並非先取得個資。</p></div><div class="card"><div class="ill" data-img="c3"><svg viewBox="0 0 64 64"><use href="#i-lock"/></svg></div><span class="lb">③ 轉帳</span><p>利用供應商安全設定，沒有登入 App、沒有通知、沒有臉部辨識就轉出。</p></div><div class="card"><div class="ill" data-img="c4"><svg viewBox="0 0 64 64"><use href="#i-db"/></svg></div><span class="lb">④ 結果</span><p>418 名客戶、427 筆、4,176 萬元；匯入北富銀同一帳戶並凍結。</p></div><div class="card"><div class="ill" data-img="c5"><svg viewBox="0 0 64 64"><use href="#i-shield"/></svg></div><span class="lb">⑤ 應變</span><p>11/3 暫停系統、全額返還；11/4 記者會；北檢以妨害電腦使用偵辦；向廠商求償。</p></div></div><table><tr><th>日期</th><th>銀行或主管機關的說法</th></tr><tr><td>11/3 公告</td><td>新網銀交易系統「程式異常」，已暫停並返還</td></tr><tr><td>11/4 記者會</td><td>外部駭客利用供應商的安全設定</td></tr><tr><td>11/11 金管會</td><td>前台、後台都重兵防守，問題在「中台」；責任由刑事局調查</td></tr></table><p class="m">改善方向（金管會）：全面強化中台防護、供應鏈管理與資安聯防。</p>
+
+<div class="tq"><div class="take"><b>本頁重點</b><br>說法會隨調查演變；先分辨誰、在什麼時間、說了什麼。</div><div class="think"><b>想一想</b><br>11/3 與 11/4 兩種說法差在哪裡？還缺什麼證據才能下結論？</div></div>
+</section>
+<section class="s" data-ch="案例" data-wiki="incident-d-hospital-ransomware,concept-ransomware" data-src="S04,S19" data-sup="M01,M12,M28,M29,M30">
+<p class="goal">教學目的：看懂勒索軟體從入口到加密的完整攻擊鏈</p>
+<h2>案例 D｜馬偕與彰基遭 CrazyHunter 勒索軟體</h2><div class="cards"><div class="card"><div class="ill" data-img="d1"><svg viewBox="0 0 64 64"><use href="#i-key"/></svg></div><span class="lb">① 入口</span><p>從 AD 帳號切入，常見是弱密碼（Trellix 分析；衛福部資訊處也提到從 AD 下手）。</p></div><div class="card"><div class="ill" data-img="d2"><svg viewBox="0 0 64 64"><use href="#i-net"/></svg></div><span class="lb">② 擴散</span><p>用 SharpGPOAbuse 透過群組原則（GPO）把惡意程式派到多台電腦。</p></div><div class="card"><div class="ill" data-img="d3"><svg viewBox="0 0 64 64"><use href="#i-warn"/></svg></div><span class="lb">③ 關防護</span><p>go.exe、go2.exe 載入有弱點的驅動程式 zam64.sys（BYOVD），終止防毒與 EDR。</p></div><div class="card"><div class="ill" data-img="d4"><svg viewBox="0 0 64 64"><use href="#i-lock"/></svg></div><span class="lb">④ 加密</span><p>crazyhunter.exe 由開源產生器 Prince Ransomware（Go）製作，加密後勒索。</p></div><div class="card"><div class="ill" data-img="d5"><svg viewBox="0 0 64 64"><use href="#i-disk"/></svg></div><span class="lb">⑤ 結果</span><p>馬偕 500 多台電腦當機、急診受影響；彰基核心系統已恢復；衛福部定調系統性攻擊。</p></div></div><div class="cols"><div class="box"><b>為什麼擋不住</b><br>衛福部提醒假日與深夜是高風險時段；攻擊者先關掉防毒再加密。各研究單位對初始入侵管道的說法並不完全一致。</div><div class="box"><b>怎麼改善與應變</b><br>離線加密備份並測試還原；AD 強密碼與多因子驗證；限制可修改 GPO 的權限；網段隔離；衛福部制定應變教戰守則。</div></div>
+
+<div class="tq"><div class="take"><b>本頁重點</b><br>勒索軟體是一條完整攻擊鏈；離線備份是最後一道防線。</div><div class="think"><b>想一想</b><br>離線備份在哪個階段發揮作用？它能阻止加密發生嗎？</div></div>
+</section>
+<section class="s" data-ch="案例" data-wiki="incident-e-forgot-account-auth-flaw,incident-f-spoofed-legal-affairs-phishing,concept-authentication-logic-flaw" data-src="S05,S06">
+<p class="goal">教學目的：用兩個小案例看驗證邏輯漏洞與社交工程的手法</p>
+<h2>案例 E｜忘記帳號漏洞　案例 F｜偽冒法規會</h2><div class="cards"><div class="card"><div class="ill" data-img="e1"><svg viewBox="0 0 64 64"><use href="#i-key"/></svg></div><span class="lb">E① 走流程</span><p>攻擊者走「忘記帳號」流程。</p></div><div class="card"><div class="ill" data-img="e2"><svg viewBox="0 0 64 64"><use href="#i-warn"/></svg></div><span class="lb">E② 誤判</span><p>系統誤判憑證驗證狀態。</p></div><div class="card"><div class="ill" data-img="e3"><svg viewBox="0 0 64 64"><use href="#i-lock"/></svg></div><span class="lb">E③ 取得權限</span><p>未完成驗證就取得帳號維護權限，新增 34 組異常帳號。</p></div><div class="card"><div class="ill" data-img="e4"><svg viewBox="0 0 64 64"><use href="#i-shield"/></svg></div><span class="lb">E④ 被攔下</span><p>嘗試存取其他功能，被既有權限控管攔下。</p></div></div><div class="cards"><div class="card"><div class="ill" data-img="f1"><svg viewBox="0 0 64 64"><use href="#i-mail"/></svg></div><span class="lb">F① 發信</span><p>以「修正就業安定基金收支保管及運用辦法第 5 條條文」為由發信。</p></div><div class="card"><div class="ill" data-img="f2"><svg viewBox="0 0 64 64"><use href="#i-bank"/></svg></div><span class="lb">F② 偽冒</span><p>用民間企業網域，寄件者帳號名稱 executive-yuan，署名行政院法規會。</p></div><div class="card"><div class="ill" data-img="f3"><svg viewBox="0 0 64 64"><use href="#i-doc"/></svg></div><span class="lb">F③ 誘導</span><p>誘導點釣魚連結、下載惡意附檔。</p></div><div class="card"><div class="ill" data-img="f4"><svg viewBox="0 0 64 64"><use href="#i-bug"/></svg></div><span class="lb">F④ 後門</span><p>植入 Cobalt Strike 後門，遠端控制電腦。</p></div></div><p class="m">E 的原則：驗證失敗或無法判斷時預設拒絕（安全失敗）。</p>
+
+<div class="tq"><div class="take"><b>本頁重點</b><br>驗證流程要把失敗與例外一起考慮；社交工程靠的是信任。</div><div class="think"><b>想一想</b><br>要怎麼測試「驗證失敗時預設拒絕」真的有做到？</div></div>
+</section>
+<section class="s" data-ch="防禦" data-wiki="concept-ai-assisted-attack,concept-api-security,concept-credential-attack,concept-ransomware,concept-third-party-risk,concept-social-engineering" data-src="S05,S11,S17,S19">
+<p class="goal">教學目的：把每一種攻擊手法對應到具體防禦</p>
+<h2>攻擊與防禦對照</h2><table><tr><th>攻擊手法</th><th>對應防禦</th></tr><tr><td>已知漏洞被利用（A）</td><td>資產盤點、依風險排修補期限、補償性控制</td></tr><tr><td>API 大量取資料（A）</td><td>伺服器端逐次授權、依敏感度設請求頻率與流量限制、異常告警</td></tr><tr><td>釣魚與社交工程（F）</td><td>多因子驗證或通行密鑰、EDR、日誌集中保存</td></tr><tr><td>帳號與驗證被繞過（C、E）</td><td>驗證失敗預設拒絕、最小權限、特權帳號分開</td></tr><tr><td>勒索軟體（D）</td><td>3-2-1 備份、備份環境獨立、每季還原演練、AD 與 GPO 權限管控</td></tr><tr><td>委外與供應商失守（B、C）</td><td>變更後安全確認、契約明訂義務、最小權限、供應商納入盤點</td></tr></table>
+
+<div class="tq"><div class="take"><b>本頁重點</b><br>每一種攻擊手法都該有對應防禦；缺哪一欄就是風險。</div><div class="think"><b>想一想</b><br>選一個案例，指出它缺了表中的哪一項防禦。</div></div>
+</section>
+<section class="s" data-ch="應變" data-wiki="concept-incident-response,concept-breach-notification" data-src="S09,S01,S16">
+<p class="goal">教學目的：知道事件發生後的步驟，並分清各種期限的效力</p>
+<h2>事件應變與個資通知</h2>
+<p class="lead">應變是一套<b>事前就備好</b>的流程，不是事後才想辦法。</p>
+<div class="cards"><div class="card"><div class="ill"><svg viewBox="0 0 64 64"><use href="#i-doc"/></svg></div><span class="lb">① 偵測確認</span><p>發現異常、確認範圍。例：領務局 11/4 下午發現網站疑似遭駭。</p></div><div class="card"><div class="ill"><svg viewBox="0 0 64 64"><use href="#i-lock"/></svg></div><span class="lb">② 遏制隔離</span><p>隔離、暫停服務。例：永豐暫停新網銀交易系統。</p></div><div class="card"><div class="ill"><svg viewBox="0 0 64 64"><use href="#i-db"/></svg></div><span class="lb">③ 保全調查</span><p>保存日誌與證據、鑑識。例：領務局保存事證。</p></div><div class="card"><div class="ill"><svg viewBox="0 0 64 64"><use href="#i-gear"/></svg></div><span class="lb">④ 清除修復</span><p>修補、重建、換發憑證。例：領務局修復並檢測後上線。</p></div><div class="card"><div class="ill"><svg viewBox="0 0 64 64"><use href="#i-mail"/></svg></div><span class="lb">⑤ 通知通報</span><p>通報主管機關、通知當事人。官方建議初步掌握範圍就先通知。</p></div><div class="card"><div class="ill"><svg viewBox="0 0 64 64"><use href="#i-disk"/></svg></div><span class="lb">⑥ 復原</span><p>恢復業務與備份。例：彰基核心系統全面恢復。</p></div><div class="card"><div class="ill"><svg viewBox="0 0 64 64"><use href="#i-shield"/></svg></div><span class="lb">⑦ 檢討改善</span><p>追究責任、改進制度。例：領務局將檢視委外管理機制。</p></div></div>
+<table><tr><th>期限或義務的層級</th><th>例子</th><th>效力</th></tr><tr><td>現行法律</td><td>個資法第 12 條：查明後以適當方式通知當事人</td><td>有</td></tr><tr><td>已公布未施行</td><td>2025-11-11 修正，施行日由行政院定</td><td>尚未生效</td></tr><tr><td>子法草案</td><td>事故通報辦法草案</td><td>未發布</td></tr><tr><td>政策呼籲</td><td>數發部 72 小時應變行動</td><td>呼籲</td></tr></table>
+<p class="m">NIST SP 800-61r3：事件應變要放進資安風險管理，治理、盤點、防護等準備工作在事件之前就要做。</p>
+
+<div class="tq"><div class="take"><b>本頁重點</b><br>準備在事件之前；期限要看效力層級，不能混為一談。</div><div class="think"><b>想一想</b><br>把領務局的做法，對到七個應變步驟的哪幾步？</div></div>
+</section>
+<section class="s" data-ch="總結" data-wiki="index" data-src="S01,S05,S11,S12">
+<p class="goal">教學目的：帶走三個重點，並自我測驗</p>
+<h2>總結與自我測驗</h2><ol><li>AI 改變的是攻擊的速度與成本；弱點與權限管理疏失仍是核心。</li><li>每個事件都能拆成攻擊路徑：入口 → 擴散 → 取資料或破壞 → 應變。</li><li>防禦靠基本功：縮小攻擊面、依風險修補、變更後驗證、做好備份與應變。</li></ol><details><summary>Q1 個資法現行第 12 條有 72 小時的期限嗎？</summary>沒有。72 小時是數發部提出的應變行動（呼籲）；現行條文是「查明後以適當方式通知當事人」。</details><details><summary>Q2 領務局公告的 72,702 是人數嗎？</summary>不是，公告的單位是「個檔案」，沒有載明人數。</details><details><summary>Q3 BYOVD 是什麼？</summary>載入有弱點的驅動程式（如 zam64.sys）來終止防毒與 EDR，案例 D 用它關掉防護後才加密。</details><p class="m">事件仍在調查，後續說法可能更新。每頁頁尾列出對應的 Wiki 頁與來源。</p>
+
+<div class="tq"><div class="take"><b>本頁重點</b><br>用基本功縮小攻擊面，再用應變降低損失。</div><div class="think"><b>想一想</b><br>這份簡報裡，哪個案例最能說明「變更後要驗證」？</div></div>
+</section>
+</main>
+<footer>
+<button id="prev" aria-label="上一頁">上一頁</button>
+<button id="next" aria-label="下一頁">下一頁</button>
+<button id="fm" aria-label="縮小字級">A−</button><button id="fp" aria-label="放大字級">A＋</button>
+<select id="toc" aria-label="跳到頁面"></select>
+<span id="num" aria-live="polite"></span>
+<span class="src" id="src"></span>
+</footer>
+<script>
+(function(){
+var S=[].slice.call(document.querySelectorAll('.s')),n=S.length,cur=0,bar=document.querySelector('#bar i'),num=document.getElementById('num'),src=document.getElementById('src'),toc=document.getElementById('toc'),WIKI='../wiki/';
+function clamp(i){return Math.max(0,Math.min(n-1,i))}
+function title(s){var h=s.querySelector('h1,h2');return h?h.textContent:'簡報'}
+S.forEach(function(s,i){var o=document.createElement('option');o.value=i;o.textContent=(i+1)+'. '+title(s);toc.appendChild(o)});
+function show(i,push){
+ cur=clamp(i);
+ S.forEach(function(s,k){s.classList.toggle('on',k===cur)});
+ bar.style.width=((cur+1)/n*100)+'%';num.textContent=(cur+1)+' / '+n;toc.value=cur;
+ var d=S[cur].dataset,w=(d.wiki||'').split(',');
+ src.innerHTML='Wiki：'+w.map(function(x){return '<a href="'+WIKI+(x==='index'?'index':(x.indexOf('incident')===0?'incidents/':'concepts/')+x)+'.md">'+x+'</a>'}).join('、')+'　來源：'+(d.src||'')+(d.sup?'　補充：'+d.sup:'');
+ [].forEach.call(cr.children,function(e){e.className=e.textContent===S[cur].dataset.ch?'on':''});
+ document.getElementById('deck').scrollTop=0;
+ if(push!==false)try{history.replaceState(null,'','#'+(cur+1))}catch(e){}
+}
+[].forEach.call(document.querySelectorAll('table'),function(t){var w=document.createElement('div');w.className='tw';t.parentNode.insertBefore(w,t);w.appendChild(t)});
+var cr=document.getElementById('crumb'),chs=[];S.forEach(function(x){if(chs.indexOf(x.dataset.ch)<0)chs.push(x.dataset.ch)});
+chs.forEach(function(c){var e=document.createElement('span');e.textContent=c;cr.appendChild(e)});
+var fs=16;function setfs(d){fs=Math.max(13,Math.min(24,fs+d));document.documentElement.style.fontSize=fs+'px'}
+document.getElementById('fm').onclick=function(){setfs(-1)};document.getElementById('fp').onclick=function(){setfs(1)};
+document.getElementById('prev').onclick=function(){show(cur-1)};
+document.getElementById('next').onclick=function(){show(cur+1)};
+toc.onchange=function(){show(+toc.value)};
+document.addEventListener('keydown',function(e){
+ if(e.target.tagName==='SELECT')return;
+ if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ')show(cur+1);
+ else if(e.key==='ArrowLeft'||e.key==='PageUp')show(cur-1);
+ else if(e.key==='Home')show(0);else if(e.key==='End')show(n-1);
+});
+var x0=null;
+document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',function(e){if(x0===null)return;var d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>60)show(cur+(d<0?1:-1));x0=null},{passive:true});
+window.addEventListener('hashchange',function(){show((parseInt(location.hash.slice(1),10)||1)-1,false)});
+[].forEach.call(document.querySelectorAll('.ill[data-img]'),function(e){var im=new Image();im.onload=function(){e.innerHTML='';e.appendChild(im)};im.alt='';im.src='assets/'+e.dataset.img+'.png'});
+show((parseInt(location.hash.slice(1),10)||1)-1,false);
+})();
+</script>
+</body>
+</html>

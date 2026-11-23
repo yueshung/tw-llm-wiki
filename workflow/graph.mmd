@@ -1,0 +1,33 @@
+%% Workflow v2（第一次實際執行後修改；v1 與差異見 workflow/DESIGN.md）
+%% 綠色 = 本次已實際執行並記錄；灰色虛線 = 已設計但本次未執行
+flowchart TD
+    A[提供事件或主題] --> B[web_search 找官方來源]
+    B --> C[web_fetch 讀全文]
+    C -->|讀不到或網址被拒| B2[改搜尋取得網址 / 標未取得]
+    B2 --> C
+    C --> D[登錄 raw/sources.yaml]
+    D --> G1{G1 來源檢查<br/>check_sources.py}
+    G1 -- 未通過 --> D
+    G1 -- 通過 --> E[寫頁前重讀來源全文<br/>撰寫 Wiki 頁並逐句標記]
+    E --> G3{G2/G3 標記與結構<br/>check_wiki.py<br/>含事件頁必填未知項}
+    G3 -- 未通過 --> E
+    G3 -- 通過 --> H[人工抽查 3 個事實句對照原文]
+    H -- 發現語意錯誤 --> E
+    H -- 通過 --> F[依 Wiki 產生簡報<br/>標 data-wiki 與 data-src]
+    F --> G4{G4/G5 靜態<br/>check_slides.py}
+    G4 -- 未通過 --> F
+    G4 -- 通過 --> G5{G5 導覽邏輯<br/>test_nav.js}
+    G5 -- 未通過 --> F
+    G5 -- 通過 --> G6{G6 知識問答<br/>run_qa.py}
+    G6 -- 失敗：Wiki 缺內容或缺未知項說明 --> E
+    G6 -- 失敗：測試本身有誤 --> T[修正測試並記錄]
+    T --> G6
+    G6 -- 通過 --> G7[/真實瀏覽器桌面與手機檢查<br/>截圖 本次未執行/]
+    G7 -.-> Z[GitHub Pages 部署與作業文件]
+    G6 -- 通過 --> Z
+    Z -.新事件.-> A
+
+    classDef done fill:#d1fae5,stroke:#0f766e,color:#064e3b
+    classDef planned fill:#f3f4f6,stroke:#9ca3af,stroke-dasharray:4 3,color:#4b5563
+    class A,B,C,D,G1,E,G3,H,F,G4,G5,G6,B2,T done
+    class G7,Z planned

@@ -1,0 +1,48 @@
+// G5 導覽邏輯測試：以最小 DOM 替身執行 slides/index.html 內的 <script>，驗證換頁、邊界、進度條、hash 與按鍵。
+// 這不是真實瀏覽器測試（無排版、無觸控），只驗證導覽邏輯。
+const fs = require('fs');
+const html = fs.readFileSync('slides/index.html', 'utf8');
+const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
+const sectionCount = (html.match(/<section class="s"/g) || []).length;
+function el(extra) { const e = Object.assign({ classList: { _s: new Set(), toggle(c, on) { on ? this._s.add(c) : this._s.delete(c) }, contains(c) { return this._s.has(c) } }, dataset: {}, style: {}, children: [], textContent: '', innerHTML: '', value: 0, scrollTop: 0, appendChild(c) { this.children.push(c) }, querySelector() { return null } }, extra); return e }
+const chList = [...html.matchAll(/<section class="s" data-ch="([^"]+)"/g)].map(m => m[1]);
+const slides = Array.from({ length: sectionCount }, (_, i) => el({ dataset: { ch: chList[i], wiki: i === 0 ? 'index' : 'concept-x,incident-y', src: 'S01', sup: i === 1 ? 'M01' : '' }, querySelector() { return { textContent: 'T' + i } } }));
+const bar = el(), num = el(), src = el(), toc = el(), prev = el(), next = el(), deck = el(), crumb = el(), fm = el(), fp = el();
+const listeners = {};
+const created = [];
+const tableEl = el({ parentNode: { insertBefore() {} } });
+const ill = el({ dataset: { img: 'a1' }, innerHTML: '<svg/>', children: [] });
+global.Image = class { set src(v) { this._src = v; if (this.onload) this.onload() } get src() { return this._src } };
+global.document = { querySelectorAll: sel => sel === '.s' ? slides : (sel === 'table' ? [tableEl] : (sel.indexOf('.ill') === 0 ? [ill] : [])), querySelector: () => bar, documentElement: { style: {} }, getElementById: id => ({ num, src, toc, prev, next, deck, crumb, fm, fp })[id], createElement: () => { const e = el(); created.push(e); return e }, addEventListener: (t, f) => { listeners[t] = f } };
+global.window = { addEventListener: (t, f) => { listeners['w' + t] = f } };
+global.location = { hash: '' };
+global.history = { replaceState: (a, b, h) => { location.hash = h } };
+eval(script);
+let fail = 0; const t = (name, ok) => { console.log((ok ? 'PASS ' : 'FAIL ') + name); if (!ok) fail++ };
+const on = () => slides.findIndex(s => s.classList.contains('on'));
+t(`共 ${sectionCount} 頁，初始顯示第 1 頁`, on() === 0 && num.textContent === `1 / ${sectionCount}`);
+next.onclick(); t('下一頁 → 第 2 頁', on() === 1);
+prev.onclick(); prev.onclick(); t('第 1 頁按上一頁不會越界', on() === 0);
+listeners.keydown({ key: 'End', target: {} }); t('End 鍵 → 最後一頁', on() === sectionCount - 1);
+next.onclick(); t('最後一頁按下一頁不會越界', on() === sectionCount - 1);
+t('最後一頁進度條 100%', bar.style.width === '100%');
+listeners.keydown({ key: 'ArrowLeft', target: {} }); t('← 鍵 → 倒數第 2 頁', on() === sectionCount - 2);
+toc.value = '3'; toc.onchange(); t('目錄跳頁 → 第 4 頁', on() === 3);
+t('hash 同步為 #4', location.hash === '#4');
+location.hash = '#7'; listeners['whashchange'](); t('hashchange #7 → 第 7 頁', on() === 6);
+location.hash = '#999'; listeners['whashchange'](); t('hash 超出範圍被限制在最後一頁', on() === sectionCount - 1);
+location.hash = '#abc'; listeners['whashchange'](); t('hash 無效 → 第 1 頁', on() === 0);
+listeners.touchstart({ touches: [{ clientX: 200 }] }); listeners.touchend({ changedTouches: [{ clientX: 100 }] }); t('向左滑動 → 下一頁', on() === 1);
+listeners.touchstart({ touches: [{ clientX: 100 }] }); listeners.touchend({ changedTouches: [{ clientX: 130 }] }); t('滑動不足 60px 不換頁', on() === 1);
+t('頁尾顯示 Wiki 連結與來源', /Wiki：/.test(src.innerHTML) && /來源：S01/.test(src.innerHTML));
+t('圖片覆蓋：assets/a1.png 載入成功時取代 SVG 備援', ill.innerHTML === '' && ill.children.length === 1 && ill.children[0].src === 'assets/a1.png');
+const act = () => crumb.children.filter(c => c.className === 'on').map(c => c.textContent);
+location.hash = '#5'; listeners['whashchange'](); t('章節導覽列：只有目前章節亮起，且等於該頁章節', act().length === 1 && act()[0] === chList[4]);
+t(`章節導覽列依序列出 ${new Set(chList).size} 個章節`, crumb.children.length === new Set(chList).size);
+fp.onclick(); t('A＋ 放大字級到 17px', document.documentElement.style.fontSize === '17px');
+fm.onclick(); fm.onclick(); t('A－ 縮小字級到 15px', document.documentElement.style.fontSize === '15px');
+for (let i = 0; i < 20; i++) fm.onclick(); t('字級下限 13px', document.documentElement.style.fontSize === '13px');
+for (let i = 0; i < 30; i++) fp.onclick(); t('字級上限 24px', document.documentElement.style.fontSize === '24px');
+location.hash = '#2'; listeners['whashchange'](); t('有補充來源的頁面，頁尾顯示「補充」', /補充：M01/.test(src.innerHTML));
+t('表格被包進可橫向捲動的容器（表格本身維持滿寬）', created.some(e => e.className === 'tw' && e.children.includes(tableEl)));
+process.exit(fail ? 1 : 0);
